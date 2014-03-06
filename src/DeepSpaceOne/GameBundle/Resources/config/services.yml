@@ -1,0 +1,12 @@
+parameters:
+
+services:
+    deepspaceone.form.extension.bootstrap:
+        class: DeepSpaceOne\GameBundle\Form\Extension\FormTypeBootstrapExtension
+        tags:
+            - { name: form.type_extension, alias: form }
+
+    #deepspaceone.form.<SERVICE_ID>:
+    #    class: DeepSpaceOne\GameBundle\Form\<TYPE_CLASS>
+    #    tags:
+    #        - { name: form.type, alias: <TYPE_NAME> }

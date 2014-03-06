@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% set active_section = 'equipment' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>Equipment</h1>
+    </div>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipment in equipments %}
+            <tr>
+                <td><a href="{{ path('equipment_edit', { 'id': equipment.id }) }}">{{ equipment.name }}</a></td>
+                <td>{{ equipment.price }} credits</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li><a href="{{ path('equipment_new') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add equipment</a></li>
+    </ul>
+{% endblock %}

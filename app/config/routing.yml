@@ -1,0 +1,4 @@
+deep_space_one_game:
+    resource: "@DeepSpaceOneGameBundle/Controller/"
+    type:     annotation
+    prefix:   /

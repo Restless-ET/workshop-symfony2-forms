@@ -1,0 +1,65 @@
+Deep Space One
+==============
+
+Deep Space One is a demo project that guides you through the use and extension
+mechanisms of the Symfony2 Form component.
+
+Installation
+------------
+
+The project is based on the Symfony2 Standard Edition and can be installed just
+like a Standard Edition project [0]:
+
+1. Unpack the project directory to the document root of your web server
+
+2. Add a virtual host configuration to your web server
+
+3. Add the host name "ds1.sfdaypt14" to your "hosts" file
+
+4. Make the app/cache, app/data and app/logs directories writable by your
+   web server [1]
+
+5. Install the project dependencies with Composer [2]:
+
+   $ ./composer.phar install
+
+5. Create and fill the database with the test fixtures:
+
+   $ app/console doctrine:database:create
+   $ app/console doctrine:schema:create
+   $ app/console doctrine:fixtures:load
+
+6. Dump the project assets:
+
+   $ app/console assetic:dump
+
+7. Open the project in your web browser and make sure that it works:
+
+   http://ds1.sfdaypt14/app_dev.php
+
+If you have any problems, please write me an email at bschussek@gmail.com
+
+Git
+---
+
+The download contains a Git repository with ready-made tags for the individual
+steps of the workshop. If you're curious, you can list the tags like this:
+
+   $ git tag
+
+You can look at the code of each individual task by checking it out:
+
+   $ git checkout task1-complete
+
+Alternatively, you can display the diff in your shell:
+
+   $ git show task1-complete
+
+See you soon!
+
+Bernhard
+
+
+[0]: http://symfony.com/doc/current/book/installation.html
+[1]: http://symfony.com/doc/current/book/installation.html#configuration-and-setup
+[2]: https://getcomposer.org/doc/00-intro.md

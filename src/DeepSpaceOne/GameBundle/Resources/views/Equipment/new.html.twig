@@ -1,0 +1,15 @@
+{% extends '::base.html.twig' %}
+
+{% set active_section = 'equipment' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>New Equipment</h1>
+    </div>
+
+    {{ form(form) }}
+
+    <ul class="record_actions list-inline">
+        <li><a href="{{ path('equipment') }}" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Back to the list</a></li>
+    </ul>
+{% endblock %}

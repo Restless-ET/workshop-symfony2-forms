@@ -1,0 +1,16 @@
+{% extends '::base.html.twig' %}
+
+{% set active_section = 'classes' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>Edit Ship Class</h1>
+    </div>
+
+    {# TASK 2: render form #}
+
+    <ul class="record_actions list-inline">
+        <li><a href="{{ path('classes') }}" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Back to the list</a></li>
+        <li>{{ form(delete_form) }}</li>
+    </ul>
+{% endblock %}

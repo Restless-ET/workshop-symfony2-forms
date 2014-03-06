@@ -1,0 +1,61 @@
+{% set active_section = active_section|default('') %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>{% block title %}Deep Space One{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="{{ asset('css/bootstrap.css') }}" rel="stylesheet" media="screen">
+    <link href="{{ asset('css/style.css') }}" rel="stylesheet" media="screen">
+
+    {% block stylesheets %}{% endblock %}
+
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+
+<body>
+
+<div class="header"><a class="container" href="{{ path('home') }}"><img src="/bundles/deepspaceonegame/images/header.jpg" /></a></div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">Your fleet</div>
+
+                <div class="list-group">
+                    <a class="list-group-item{% if active_section == 'ships' %} active{% endif %}" href="{{ path('ships') }}">Ships</a>
+                </div>
+            </div>
+
+            <div class="panel panel-default">
+                <div class="panel-heading">Administration</div>
+
+                <div class="list-group">
+                    <a class="list-group-item{% if active_section == 'equipment' %} active{% endif %}" href="{{ path('equipment') }}">Equipment</a>
+                    <a class="list-group-item{% if active_section == 'goods' %} active{% endif %}" href="{{ path('goods') }}">Goods</a>
+                    <a class="list-group-item{% if active_section == 'classes' %} active{% endif %}" href="{{ path('classes') }}">Ship Classes</a>
+                </div>
+            </div>
+        </div>
+        <article class="col-sm-9 content">
+            {% block body %}{% endblock %}
+        </article>
+    </div>
+</div>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script>window.jQuery || document.write('<script src="{{ asset('js/jquery.js') }}"><\/script>')</script>
+<script src="{{ asset('js/bootstrap.js') }}"></script>
+
+<!-- HTML5 Shim and Respond.js add IE8 support of HTML5 elements and media queries -->
+{% include 'BraincraftedBootstrapBundle::ie8-support.html.twig' %}
+
+{% block javascripts %}{% endblock %}
+
+</body>
+
+</html>

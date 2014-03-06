@@ -1,0 +1,35 @@
+{% extends '::base.html.twig' %}
+
+{% set active_section = 'classes' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>Ship Class</h1>
+    </div>
+
+    <table class="record_properties table table-bordered">
+        <tbody>
+            <tr>
+                <th class="span2">Name</th>
+                <td>{{ class.name }}</td>
+            </tr>
+            <tr>
+                <th>Crew</th>
+                <td>{{ class.crewSize }}</td>
+            </tr>
+            <tr>
+                <th>Equipment</th>
+                <td>{{ class.equipmentCapacity }} mount points</td>
+            </tr>
+            <tr>
+                <th>Payload</th>
+                <td>{{ class.payloadCapacity }} tons</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul class="record_actions list-inline">
+        <li><a href="{{ path('classes') }}" class="btn btn-default"><span class="glyphicon glyphicon-list"></span> Back to the list</a></li>
+    <li>{{ form(delete_form) }}</li>
+</ul>
+{% endblock %}

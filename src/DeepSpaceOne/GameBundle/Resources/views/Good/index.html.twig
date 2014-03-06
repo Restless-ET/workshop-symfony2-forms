@@ -1,0 +1,30 @@
+{% extends '::base.html.twig' %}
+
+{% set active_section = 'goods' %}
+
+{% block body -%}
+    <div class="page-header">
+        <h1>Goods</h1>
+    </div>
+
+    <table class="records_list table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price per ton</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for good in goods %}
+            <tr>
+                <td><a href="{{ path('goods_edit', { 'id': good.id }) }}">{{ good.name }}</a></td>
+                <td>{{ good.pricePerTon }} credits</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul class="list-inline">
+        <li><a href="{{ path('goods_new') }}" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> Add good</a></li>
+    </ul>
+    {% endblock %}
