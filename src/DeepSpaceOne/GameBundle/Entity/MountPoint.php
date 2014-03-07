@@ -55,8 +55,9 @@ class MountPoint
      */
     private $equipment;
 
-    public function __construct(Equipment $equipment = null)
+    public function __construct(Ship $ship, Equipment $equipment = null)
     {
+        $this->ship = $ship;
         $this->equipment = $equipment;
     }
 

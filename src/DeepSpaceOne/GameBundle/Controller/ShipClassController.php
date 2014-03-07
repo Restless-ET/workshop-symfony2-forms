@@ -263,7 +263,7 @@ class ShipClassController extends Controller
     private function createEditForm(ShipClass $class)
     {
         // Task 4
-         $form = $this->createForm(new ShipClassType(), new ShipClass(), array(
+        $form = $this->createForm(new ShipClassType(), $class, array(
             'action' => $this->generateUrl('classes_update', array('id' => $class->getId())),
             'method' => 'PUT',
         ));

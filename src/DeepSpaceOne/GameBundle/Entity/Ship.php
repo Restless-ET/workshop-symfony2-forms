@@ -88,10 +88,11 @@ class Ship
 
     public function __construct(ShipClass $class = null)
     {
-        $this->class = $class;
+        //$this->class = $class;
+        $this->setClass($class);
 
         $this->clearPayload();
-        $this->clearMountPoints();
+        //$this->clearMountPoints();
     }
 
 
@@ -125,6 +126,18 @@ class Ship
     public function setClass(ShipClass $class)
     {
         $this->class = $class;
+
+        if (null === $this->mountPoints) {
+            $this->mountPoints = new ArrayCollection();
+        }
+
+        while (count($this->mountPoints) < $class->getEquipmentCapacity()) {
+            $this->mountPoints[] = new MountPoint($this);
+        }
+
+        while (count($this->mountPoints) > $class->getEquipmentCapacity()) {
+            $this->mountPoints->remove(count($this->mountPoints) - 1);
+        }
     }
 
     /**
