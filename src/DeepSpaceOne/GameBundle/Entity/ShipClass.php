@@ -15,6 +15,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Column;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * A space ship class.
@@ -39,6 +40,9 @@ class ShipClass
      *
      * @Column(type="string")
      *
+     * @Assert\NotNull
+     * @Assert\Length(min = "3", minMessage = "Please enter at least 3 characters.")
+     *
      * @var string
      */
     private $name;
@@ -47,6 +51,9 @@ class ShipClass
      * Price of a ship of that class in credits.
      *
      * @Column(type="integer", nullable=false)
+     *
+     * @Assert\NotNull
+     * @Assert\Range(min=1, minMessage="The ship's price should be 1 or more.")
      *
      * @var integer
      */
@@ -57,6 +64,9 @@ class ShipClass
      *
      * @Column(type="integer")
      *
+     * @Assert\NotNull
+     * @Assert\Range(min=0, minMessage="The payload capacity cannot be negative.")
+     *
      * @var integer
      */
     private $payloadCapacity;
@@ -66,6 +76,9 @@ class ShipClass
      *
      * @Column(type="integer")
      *
+     * @Assert\NotNull
+     * @Assert\Range(min=0, minMessage="The number of mount points cannot be negative.")
+     *
      * @var integer
      */
     private $equipmentCapacity;
@@ -74,6 +87,9 @@ class ShipClass
      * The number of crew members required to fly the ship.
      *
      * @Column(type="integer")
+     *
+     * @Assert\NotNull
+     * @Assert\Range(min=0, minMessage="The number of crew members cannot be negative.")
      *
      * @var integer
      */

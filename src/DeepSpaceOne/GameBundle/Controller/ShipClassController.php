@@ -134,13 +134,14 @@ class ShipClassController extends Controller
 
         // TASK 2: update if condition
         if ($editForm->isValid()) {
+          /* TASK 3
             // TASK 2: update $class entity
             $class->setName($editForm->get('name')->getData());
             $class->setCrewSize($editForm->get('crewSize')->getData());
             $class->setEquipmentCapacity($editForm->get('equipment')->getData());
             $class->setPayloadCapacity($editForm->get('payload')->getData());
             $class->setPrice($editForm->get('price')->getData());
-
+          */
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -199,37 +200,19 @@ class ShipClassController extends Controller
      */
     public function createShipClassFormBuilder()
     {
-        return $this->createFormBuilder()
-            ->add('name', null, array(
-                'constraints' => array(
-                    new NotNull(),
-                    new Length(array('min' => 3, 'minMessage' => 'Please enter at least 3 characters.')),
-                ),
+        return $this->createFormBuilder(null, array(
+                // TASK 3
+                'data_class' => '\DeepSpaceOne\GameBundle\Entity\ShipClass'
             ))
-            ->add('crewSize', 'integer', array(
-                'constraints' => array(
-                    new NotNull(),
-                    new Range(array('min' => 0, 'minMessage' => 'The number of crew members cannot be negative.')),
-                ),
-            ))
+            ->add('name')
+            ->add('crewSize')
             ->add('equipment', 'integer', array(
-                'constraints' => array(
-                    new NotNull(),
-                    new Range(array('min' => 0, 'minMessage' => 'The number of mount points cannot be negative.')),
-                ),
+                'property_path' => 'equipmentCapacity', // TASK 3
             ))
             ->add('payload', 'integer', array(
-                'constraints' => array(
-                    new NotNull(),
-                    new Range(array('min' => 0, 'minMessage' => 'The payload capacity cannot be negative.')),
-                ),
+                'property_path' => 'payloadCapacity', // TASK 3
             ))
-            ->add('price', 'integer', array(
-                'constraints' => array(
-                    new NotNull(),
-                    new Range(array('min' => 1, 'minMessage' => 'The ship\'s price should be 1 or more.')),
-                ),
-            ))
+            ->add('price')
         ;
     }
 
@@ -265,13 +248,7 @@ class ShipClassController extends Controller
             ->setAction($this->generateUrl('classes_update', array('id' => $class->getId())))
             ->setMethod('PUT')
             ->add('update', 'submit')
-            ->setData(array(
-                'name' => $class->getName(),
-                'crewSize' => $class->getCrewSize(),
-                'equipment' => $class->getEquipmentCapacity(),
-                'payload' => $class->getPayloadCapacity(),
-                'price' => $class->getPrice(),
-            ))
+            ->setData($class) // TASK 3
             ->getForm();
     }
 
