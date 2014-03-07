@@ -77,7 +77,7 @@ class Ship
     /**
      * The mountPoints for mounting equipment.
      *
-     * @OneToMany(targetEntity="MountPoint", mappedBy="ship", cascade={"persist", "remove"})
+     * @OneToMany(targetEntity="MountPoint", mappedBy="ship", cascade={"persist", "remove"}, orphanRemoval=true)
      *
      * @Assert\NotNull
      * @Assert\Valid
