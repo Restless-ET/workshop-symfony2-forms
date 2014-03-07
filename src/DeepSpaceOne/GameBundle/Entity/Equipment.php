@@ -53,6 +53,11 @@ class Equipment
      */
     private $price;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * @return integer
      */

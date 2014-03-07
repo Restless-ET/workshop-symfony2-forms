@@ -2,6 +2,8 @@
 
 namespace DeepSpaceOne\GameBundle\Controller;
 
+use DeepSpaceOne\GameBundle\Form\ShipType;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -150,7 +152,7 @@ class ShipController extends Controller
      */
     private function createCreateForm()
     {
-        $form = $this->createForm('form', null, array(
+        $form = $this->createForm(new ShipType(), null, array(
             'action' => $this->generateUrl('ships_create'),
             'method' => 'POST',
         ));
@@ -169,7 +171,7 @@ class ShipController extends Controller
      */
     private function createEditForm(Ship $ship)
     {
-        $form = $this->createForm('form', $ship, array(
+        $form = $this->createForm(new ShipType(), $ship, array(
             'action' => $this->generateUrl('ships_update', array('id' => $ship->getId())),
             'method' => 'PUT',
         ));

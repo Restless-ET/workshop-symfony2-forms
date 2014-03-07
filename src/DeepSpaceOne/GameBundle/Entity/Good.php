@@ -50,6 +50,11 @@ class Good
      */
     private $pricePerTon;
 
+    public function __toString()
+    {
+        return $this->name;
+    }
+
     /**
      * @return mixed
      */
