@@ -81,6 +81,7 @@ class ShipType extends AbstractType
                     'type' => new PayloadType(),
                     'allow_add' => true,
                     'allow_delete' => true,
+                    'error_bubbling' => false,
                 ));
         };
 
@@ -94,7 +95,10 @@ class ShipType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'DeepSpaceOne\GameBundle\Entity\Ship'
+            'data_class' => 'DeepSpaceOne\GameBundle\Entity\Ship',
+            'error_mapping' => array(
+                'isPayloadTooHeavy' => 'payload'
+            )
         ));
     }
 
