@@ -42,11 +42,36 @@ class ShipType extends AbstractType
             // after adding all children.
             $ship->setClass($class);
 
-            $form->add('mountPoints', 'bootstrap_collection', array(
-                    'type' => new MountPointType(),
-                    //'allow_add' => true,
-                    //'allow_delete' => true,
-                ))
+            $factory = $form->getConfig()->getFormFactory();
+
+            $form->add(
+                    // MountPoints Builder
+                    $factory->createNamedBuilder('mountPoints', 'bootstrap_collection', null, array(
+                        'type' => new MountPointType(),
+                        //'allow_add' => true,
+                        //'allow_delete' => true,
+                        'auto_initialize' => false, // Automatic initialization is only supported on root forms.
+                                                    // You should set the "auto_initialize" option to false on the field "mountPoints".
+                    ))
+                    ->addEventListener(FormEvents::PRE_SUBMIT, function(FormEvent $event) {
+                        $mountPointsForm = $event->getForm();
+                        $data = $event->getData();
+
+                        //var_dump($event->getData());
+                        //var_dump(count($mountPointsForm->all())); // already correct the count
+                        //die;
+
+                        // Prevent "extra fields" errors
+                        foreach ($data as $index => $value) {
+                            if (!$mountPointsForm->has($index)) {
+                                unset($data[$index]);
+                            }
+                        }
+
+                        $event->setData($data);
+                    })
+                    ->getForm()
+                )
                 ->add('payload', 'bootstrap_collection', array(
                     'type' => new PayloadType(),
                     'allow_add' => true,

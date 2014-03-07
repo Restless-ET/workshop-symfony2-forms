@@ -72,10 +72,10 @@ class MountPoint
     /**
      * @param \DeepSpaceOne\GameBundle\Entity\Ship $ship
      */
-    public function setShip($ship)
+    /*public function setShip($ship)
     {
         $this->ship = $ship;
-    }
+    }*/
 
     /**
      * @return Ship
