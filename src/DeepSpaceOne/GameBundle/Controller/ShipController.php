@@ -66,7 +66,7 @@ class ShipController extends Controller
         $form = $this->createCreateForm();
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($form->get('buy')->isClicked() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($form->getData());
             $em->flush();
@@ -111,7 +111,7 @@ class ShipController extends Controller
         $editForm = $this->createEditForm($ship);
         $editForm->handleRequest($request);
 
-        if ($editForm->isValid()) {
+        if ($editForm->get('update')->isClicked() && $editForm->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->flush();
 
@@ -152,7 +152,7 @@ class ShipController extends Controller
      */
     private function createCreateForm()
     {
-        $form = $this->createForm(new ShipType(), null, array(
+        $form = $this->createForm('deepspaceone_ship', null, array(
             'action' => $this->generateUrl('ships_create'),
             'method' => 'POST',
         ));
@@ -171,7 +171,7 @@ class ShipController extends Controller
      */
     private function createEditForm(Ship $ship)
     {
-        $form = $this->createForm(new ShipType(), $ship, array(
+        $form = $this->createForm('deepspaceone_ship', $ship, array(
             'action' => $this->generateUrl('ships_update', array('id' => $ship->getId())),
             'method' => 'PUT',
         ));

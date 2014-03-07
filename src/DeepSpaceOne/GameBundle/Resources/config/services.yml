@@ -6,6 +6,21 @@ services:
         tags:
             - { name: form.type_extension, alias: form }
 
+    deepspaceone.form.ship:
+        class: DeepSpaceOne\GameBundle\Form\ShipType
+        tags:
+            - { name: form.type, alias: deepspaceone_ship }
+
+    deepspaceone.form.payload:
+        class: DeepSpaceOne\GameBundle\Form\PayloadType
+        tags:
+            - { name: form.type, alias: deepspaceone_payload }
+
+    deepspaceone.form.mountpoint:
+        class: DeepSpaceOne\GameBundle\Form\MountPointType
+        tags:
+            - { name: form.type, alias: deepspaceone_mountpoint }
+
     #deepspaceone.form.<SERVICE_ID>:
     #    class: DeepSpaceOne\GameBundle\Form\<TYPE_CLASS>
     #    tags:

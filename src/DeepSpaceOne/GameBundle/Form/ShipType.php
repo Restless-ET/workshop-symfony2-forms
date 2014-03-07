@@ -22,6 +22,7 @@ class ShipType extends AbstractType
         $builder
             ->add('name', null, array('required' => false))
             ->add('class')
+            ->add('updateClass', 'submit', array('validation_groups' => false))
         ;
 
         // Make sure that the form has a default ship so that the correct number
