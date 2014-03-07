@@ -7,6 +7,7 @@
         <h1>Manage Ship</h1>
     </div>
 
+    {% form_theme edit_form 'DeepSpaceOneGameBundle:Ship:ship-form.html.twig' %}
     {{ form(edit_form) }}
 
     <ul class="record_actions list-inline">

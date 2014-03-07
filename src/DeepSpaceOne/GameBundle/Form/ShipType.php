@@ -21,7 +21,11 @@ class ShipType extends AbstractType
     {
         $builder
             ->add('name', null, array('required' => false))
-            ->add('class')
+            ->add('class', null, array(
+                'attr' => array(
+                    'help_text' => 'The ship class determines the allowed number of mountpoints and the amount of payload the ship can carry.'
+                ),
+            ))
             ->add('updateClass', 'submit', array('validation_groups' => false))
         ;
 

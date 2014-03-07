@@ -1,0 +1,22 @@
+{% use 'BraincraftedBootstrapBundle:Form:bootstrap.html.twig' %}
+
+{% block form_label %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
+    {% if required %}
+        {% set label = label ~ ' *' %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
+
+{% block deepspaceone_mountpoint_widget %}
+    {{ form_widget(form.equipment) }}
+{% endblock %}
+
+{% block deepspaceone_payload_widget %}
+    {% set previous_style = bootstrap_get_style() %}
+    {{ bootstrap_set_style('inline') }}
+    {{ form_widget(form, {'attr': {'class': 'form-inline form-payload'}}) }}
+    {{ bootstrap_set_style(previous_style) }}
+{% endblock %}
