@@ -3,9 +3,7 @@
 namespace DeepSpaceOne\GameBundle\Controller;
 
 use Symfony\Component\Validator\Constraints\Length;
-
 use Symfony\Component\Validator\Constraints\Range;
-
 use Symfony\Component\Validator\Constraints\NotNull;
 
 use Symfony\Component\HttpFoundation\Request;
@@ -157,7 +155,6 @@ class GoodController extends Controller
             if (count($results) > 0) {
                 $form->get('name')->addError(new FormError('A good with that name already exists.'));
             } else {
-                $em->persist($good);
                 $em->flush();
 
                 $request->getSession()->getFlashBag()->add('form', 'The good was updated successfully!');
