@@ -39,7 +39,7 @@ class MountPoint
     private $id;
 
     /**
-     * @ManyToOne(targetEntity="Ship")
+     * @ManyToOne(targetEntity="Ship", inversedBy="mountPoints")
      * @JoinColumn(nullable=false)
      *
      * @Assert\NotNull
