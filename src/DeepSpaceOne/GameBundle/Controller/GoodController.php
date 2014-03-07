@@ -2,6 +2,12 @@
 
 namespace DeepSpaceOne\GameBundle\Controller;
 
+use Symfony\Component\Validator\Constraints\Length;
+
+use Symfony\Component\Validator\Constraints\Range;
+
+use Symfony\Component\Validator\Constraints\NotNull;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -44,9 +50,11 @@ class GoodController extends Controller
     public function newAction()
     {
         // TASK 1: create form
+        $form = $this->generateCreateForm();
 
         return array(
             // TASK 1: pass form to view
+            'form' => $form->createView(),
         );
     }
 
@@ -60,20 +68,39 @@ class GoodController extends Controller
     public function createAction(Request $request)
     {
         // TASK 1: create form and handle the request
+        $form = $this->generateCreateForm();
 
+        $form->handleRequest($request);
         // TASK 1: update if condition
-        if (false) {
+        if ($form->isValid()) {
             // TASK 1: create good
+            $good = new Good();
+            $good->setName($form->get('name')->getData());
+            $good->setPricePerTon($form->get('price')->getData());
 
+            /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            // TASK 1: persist good
-            $em->flush();
+            // Validate unique register
+            //$query = $em->createQuery('SELECT g FROM Good g WHERE g.name = :name');
+            //$results = $query->execute(array('name' => $form->get('name')->getData()));
+            $results = array();
 
-            return $this->redirect($this->generateUrl('goods'));
+            if (count($results) > 0) {
+                $form->get('name')->addError(new FormError('A good with that name already exists.'));
+            } else {
+                // TASK 1: persist good
+                $em->persist($good);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('form', 'The good was created successfully!');
+
+                return $this->redirect($this->generateUrl('goods'));
+            }
         }
 
         return array(
             // TASK 1: pass form to view
+            'form' => $form->createView(),
         );
     }
 
@@ -89,11 +116,13 @@ class GoodController extends Controller
         $deleteForm = $this->createDeleteForm($good);
 
         // TASK 1: create edit form for $good
+        $editForm = $this->generateEditForm($good);
 
         return array(
             'good' => $good,
             'delete_form' => $deleteForm->createView(),
             // TASK 1: pass form to view
+            'edit_form' => $editForm->createView(),
         );
     }
 
@@ -109,21 +138,39 @@ class GoodController extends Controller
         $deleteForm = $this->createDeleteForm($good);
 
         // TASK 1: create edit form and handle the request
+        $editForm = $this->generateEditForm($good);
+        $editForm->handleRequest($request);
 
         // TASK 1: update if condition
-        if (false) {
+        if ($editForm->isValid()) {
             // TASK 1: update $good entity
+            $good->setName($editForm->get('name')->getData());
+            $good->setPricePerTon($editForm->get('price')->getData());
 
+            /** @var \Doctrine\ORM\EntityManager $em */
             $em = $this->getDoctrine()->getManager();
-            $em->flush();
+            // Validate unique register
+            //$query = $em->createQuery('SELECT g FROM Good g WHERE g.name = :name');
+            //$results = $query->execute(array('name' => $form->get('name')->getData()));
+            $results = array();
 
-            return $this->redirect($this->generateUrl('goods'));
+            if (count($results) > 0) {
+                $form->get('name')->addError(new FormError('A good with that name already exists.'));
+            } else {
+                $em->persist($good);
+                $em->flush();
+
+                $request->getSession()->getFlashBag()->add('form', 'The good was updated successfully!');
+
+                return $this->redirect($this->generateUrl('goods'));
+            }
         }
 
         return array(
             'good' => $good,
             'delete_form' => $deleteForm->createView(),
             // TASK 1: pass form to view
+            'edit_form' => $editForm,
         );
     }
 
@@ -162,5 +209,64 @@ class GoodController extends Controller
             ->add('delete', 'submit', array('attr' => array('class' => 'btn-danger')))
             ->getForm()
         ;
+    }
+
+    private function generateCreateForm()
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('goods_create'))
+            ->add('name', 'text', array(
+                'constraints' => array(
+                    new NotNull(array(
+                        'message' => 'Please insert a name.'
+                    )),
+                    new Length(array(
+                        'min' => 2,
+                        'minMessage' => 'Please enter a name with at least {{ limit }} characters.',
+                    )),
+                ),
+             ))
+            ->add('price', 'integer', array(
+                'constraints' => array(
+                    new NotNull(),
+                    new Range(array('min' => 1)),
+                )
+             ))
+            ->add('create', 'submit')
+            ->getForm();
+
+        return $form;
+    }
+
+    private function generateEditForm(Good $good)
+    {
+        $form = $this->createFormBuilder()
+            ->setAction($this->generateUrl('goods_update', array('id' => $good->getId())))
+            ->setMethod('PUT')
+            ->add('name', 'text', array(
+                'constraints' => array(
+                    new NotNull(array(
+                        'message' => 'Please insert a name.'
+                    )),
+                    new Length(array(
+                        'min' => 2,
+                        'minMessage' => 'Please enter a name with at least {{ limit }} characters.',
+                    )),
+                ),
+             ))
+            ->add('price', 'integer', array(
+                'constraints' => array(
+                    new NotNull(),
+                    new Range(array('min' => 1)),
+                )
+             ))
+            ->add('update', 'submit')
+            ->setData(array(
+                'name' => $good->getName(),
+                'price' => $good->getPricePerTon(),
+            ))
+            ->getForm();
+
+        return $form;
     }
 }

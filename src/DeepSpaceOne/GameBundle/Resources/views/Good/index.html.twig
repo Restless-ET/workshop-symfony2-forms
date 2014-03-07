@@ -7,6 +7,10 @@
         <h1>Goods</h1>
     </div>
 
+    {% for message in app.session.flashBag.get('form') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
     <table class="records_list table">
         <thead>
             <tr>
