@@ -13,6 +13,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
+use DeepSpaceOne\GameBundle\Form\ShipClassType;
+
 /**
  * Handles the ship class CRUD operations.
  *
@@ -223,6 +225,21 @@ class ShipClassController extends Controller
      */
     private function createCreateForm()
     {
+        // Task 4
+        $form = $this->createForm(new ShipClassType(), new ShipClass(), array(
+            'action' => $this->generateUrl('classes_create'),
+        ));
+
+        $form->add('terms', 'checkbox', array(
+                'constraints' => new True(array(
+                    'message' => 'You need to accept the terms and conditions.'
+                 )),
+                'mapped' => false,
+             ));
+        $form->add('create', 'submit');
+
+        return $form;
+        /* Task 4
         return $this->createShipClassFormBuilder()
             ->setAction($this->generateUrl('classes_create'))
             ->add('create', 'submit')
@@ -233,6 +250,7 @@ class ShipClassController extends Controller
                 'price' => 100,
             ))
             ->getForm();
+        */
     }
 
     /**
@@ -244,12 +262,23 @@ class ShipClassController extends Controller
      */
     private function createEditForm(ShipClass $class)
     {
+        // Task 4
+         $form = $this->createForm(new ShipClassType(), new ShipClass(), array(
+            'action' => $this->generateUrl('classes_update', array('id' => $class->getId())),
+            'method' => 'PUT',
+        ));
+
+        $form->add('update', 'submit');
+
+        return $form;
+        /* Task 4
         return $this->createShipClassFormBuilder()
             ->setAction($this->generateUrl('classes_update', array('id' => $class->getId())))
             ->setMethod('PUT')
             ->add('update', 'submit')
             ->setData($class) // TASK 3
             ->getForm();
+        */
     }
 
     /**
