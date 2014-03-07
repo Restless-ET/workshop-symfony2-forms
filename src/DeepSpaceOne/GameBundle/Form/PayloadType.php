@@ -14,7 +14,14 @@ class PayloadType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('mass')->add('good');
+        $builder
+            ->add('mass', null, array(
+                //'data' => 5 // This will override what comes from the DB on edit action
+            ))
+            ->add('good')
+        ;
+
+        //$builder->get('mass')->setData(10);
     }
 
     /**
