@@ -13,6 +13,7 @@
 /bin/
 /composer.phar
 /*.zip
+!/ds1.sfdaypt14.zip
 
 # Don't keep the lock file to prevent problems with ICU
 /composer.lock
