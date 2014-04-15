@@ -165,31 +165,52 @@ class Ship
     /**
      * @param MountPoint $mountPoint
      */
-    public function addMountPoint(MountPoint $mountPoint)
+    /*public function addMountPoint(MountPoint $mountPoint)
     {
         $this->mountPoints[] = $mountPoint;
 
         $mountPoint->setShip($this);
-    }
+    }*/
 
     /**
      * @param MountPoint $mountPoint
      */
-    public function removeMountPoint(MountPoint $mountPoint)
+    /*public function removeMountPoint(MountPoint $mountPoint)
     {
         $this->mountPoints->removeElement($mountPoint);
 
         if ($this === $mountPoint->getShip()) {
             $mountPoint->setShip(null);
         }
-    }
+    }*/
 
     /**
      * Clears the mount points.
      */
-    public function clearMountPoints()
+    /*public function clearMountPoints()
     {
         $this->mountPoints = new ArrayCollection();
+    }*/
+
+    /**
+     * Sets the equipment mounted into a specific slot.
+     *
+     * @param integer   $offset
+     * @param Equipment $equipment
+     */
+    public function setEquipment($offset, Equipment $equipment = null)
+    {
+        $this->mountPoints[$offset]->setEquipment($equipment);
+    }
+
+    /**
+     * @param integer $offset
+     *
+     * @return Equipment
+     */
+    public function getEquipment($offset)
+    {
+        return $this->mountPoints[$offset]->getEquipment();
     }
 
     /**
